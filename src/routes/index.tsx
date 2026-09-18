@@ -8,12 +8,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "빔프로젝터용 첫인상 투표 안내 화면. 참가자 카드와 공통 투표 QR, 제출 현황을 한 화면에 보여줍니다.",
+          "빔프로젝터용 첫인상 선택 안내 화면. 참가자 카드와 공통 투표 QR, 제출 현황을 한 화면에 보여줍니다.",
       },
       { property: "og:title", content: "PLAY 01 · SIGNAL — 윷놀이 자만추 1기" },
       {
         property: "og:description",
-        content: "지금, 누가 더 궁금한가요? 마음이 가는 사람을 1·2·3순위로 선택해주세요.",
+        content: "첫인상 선택 — 마음이 가는 사람을 1·2·3순위로 선택해주세요.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -32,17 +32,13 @@ function BeamIntro() {
         </div>
         <p className="mt-1 text-sm tracking-[0.3em] text-muted-foreground">윷놀이 자만추 1기</p>
 
-        <h1 className="mt-6 text-5xl leading-[0.95] text-deep md:text-7xl">
-          지금, 누가 더
-          <br />
-          궁금한가요?
-        </h1>
+        <h1 className="mt-6 text-5xl leading-[0.95] text-deep md:text-7xl">첫인상 선택</h1>
         <p className="mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
           마음이 가는 사람을 1·2·3순위로 선택해주세요.
         </p>
 
         <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto]">
-          <div className="grid grid-cols-5 gap-3">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-6">
             {MEN.map((id) => (
               <div
                 key={id}
@@ -76,11 +72,11 @@ function BeamIntro() {
           <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
             <div className="h-full w-0" style={{ backgroundImage: "var(--gradient-petal)" }} />
           </div>
-          <span className="font-display text-xl text-deep">0 / 10</span>
+          <span className="font-display text-xl text-deep">0 / 12</span>
         </div>
 
         <p className="mt-4 text-xs text-muted-foreground">
-          여성 참가자에게는 남성 5명, 남성 참가자에게는 여성 5명만 표시됩니다.
+          여성 참가자에게는 남성 6명, 남성 참가자에게는 여성 6명만 표시됩니다.
         </p>
       </div>
     </main>
