@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FinalRouteImport } from './routes/final'
+import { Route as ResultRouteImport } from './routes/result'
+import { Route as TeamsRouteImport } from './routes/teams'
 import { Route as VoteRouteImport } from './routes/vote'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +25,16 @@ const FinalRoute = FinalRouteImport.update({
   path: '/final',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResultRoute = ResultRouteImport.update({
+  id: '/result',
+  path: '/result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamsRoute = TeamsRouteImport.update({
+  id: '/teams',
+  path: '/teams',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VoteRoute = VoteRouteImport.update({
   id: '/vote',
   path: '/vote',
@@ -32,30 +44,38 @@ const VoteRoute = VoteRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/final': typeof FinalRoute
+  '/result': typeof ResultRoute
+  '/teams': typeof TeamsRoute
   '/vote': typeof VoteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/final': typeof FinalRoute
+  '/result': typeof ResultRoute
+  '/teams': typeof TeamsRoute
   '/vote': typeof VoteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/final': typeof FinalRoute
+  '/result': typeof ResultRoute
+  '/teams': typeof TeamsRoute
   '/vote': typeof VoteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/final' | '/vote'
+  fullPaths: '/' | '/final' | '/result' | '/teams' | '/vote'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/final' | '/vote'
-  id: '__root__' | '/' | '/final' | '/vote'
+  to: '/' | '/final' | '/result' | '/teams' | '/vote'
+  id: '__root__' | '/' | '/final' | '/result' | '/teams' | '/vote'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FinalRoute: typeof FinalRoute
+  ResultRoute: typeof ResultRoute
+  TeamsRoute: typeof TeamsRoute
   VoteRoute: typeof VoteRoute
 }
 
@@ -75,6 +95,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FinalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/result': {
+      id: '/result'
+      path: '/result'
+      fullPath: '/result'
+      preLoaderRoute: typeof ResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teams': {
+      id: '/teams'
+      path: '/teams'
+      fullPath: '/teams'
+      preLoaderRoute: typeof TeamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vote': {
       id: '/vote'
       path: '/vote'
@@ -88,6 +122,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FinalRoute: FinalRoute,
+  ResultRoute: ResultRoute,
+  TeamsRoute: TeamsRoute,
   VoteRoute: VoteRoute,
 }
 export const routeTree = rootRouteImport
