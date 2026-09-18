@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as FinalRouteImport } from './routes/final'
 import { Route as ResultRouteImport } from './routes/result'
 import { Route as TeamsRouteImport } from './routes/teams'
@@ -18,6 +19,11 @@ import { Route as VoteRouteImport } from './routes/vote'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FinalRoute = FinalRouteImport.update({
@@ -43,6 +49,7 @@ const VoteRoute = VoteRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/final': typeof FinalRoute
   '/result': typeof ResultRoute
   '/teams': typeof TeamsRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/final': typeof FinalRoute
   '/result': typeof ResultRoute
   '/teams': typeof TeamsRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/final': typeof FinalRoute
   '/result': typeof ResultRoute
   '/teams': typeof TeamsRoute
@@ -65,14 +74,15 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/final' | '/result' | '/teams' | '/vote'
+  fullPaths: '/' | '/admin' | '/final' | '/result' | '/teams' | '/vote'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/final' | '/result' | '/teams' | '/vote'
-  id: '__root__' | '/' | '/final' | '/result' | '/teams' | '/vote'
+  to: '/' | '/admin' | '/final' | '/result' | '/teams' | '/vote'
+  id: '__root__' | '/' | '/admin' | '/final' | '/result' | '/teams' | '/vote'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   FinalRoute: typeof FinalRoute
   ResultRoute: typeof ResultRoute
   TeamsRoute: typeof TeamsRoute
@@ -86,6 +96,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/final': {
@@ -121,6 +138,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   FinalRoute: FinalRoute,
   ResultRoute: ResultRoute,
   TeamsRoute: TeamsRoute,

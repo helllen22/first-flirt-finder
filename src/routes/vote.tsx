@@ -67,7 +67,7 @@ function VotePage() {
                 <span className="font-display text-xl text-deep">{r.label}</span>
                 <span className="text-xs text-muted-foreground">{r.hint}</span>
               </div>
-              <div className="mt-3 grid grid-cols-5 gap-2">
+              <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
                 {MEN.map((id) => {
                   const takenBy = picks.findIndex((p) => p === id);
                   const mine = takenBy === r.key;
