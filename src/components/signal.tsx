@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { Link, useRouterState } from "@tanstack/react-router";
 
-export const MEN = ["M01", "M02", "M03", "M04", "M05"];
-export const WOMEN = ["W01", "W02", "W03", "W04", "W05"];
+export const MEN = ["남1", "남2", "남3", "남4", "남5", "남6"];
+export const WOMEN = ["여1", "여2", "여3", "여4", "여5", "여6"];
+export const ALL = [...MEN, ...WOMEN];
 
-/** Real, scannable QR code pointing at the vote page of the current origin. */
-export function VoteQR({ size = 168 }: { size?: number }) {
+/** Real, scannable QR code pointing at a path of the current origin. */
+export function VoteQR({ size = 168, path = "/vote" }: { size?: number; path?: string }) {
   const [url, setUrl] = useState<string | null>(null);
   useEffect(() => {
-    setUrl(`${window.location.origin}/vote`);
-  }, []);
+    setUrl(`${window.location.origin}${path}`);
+  }, [path]);
 
   return (
     <div
@@ -37,16 +38,17 @@ export function Petal({ className = "" }: { className?: string }) {
 
 const links = [
   { to: "/", label: "빔 · 투표 안내" },
-  { to: "/vote", label: "첫인상 투표" },
+  { to: "/vote", label: "첫인상 선택" },
   { to: "/teams", label: "빔 · 팀 발표" },
   { to: "/final", label: "최종 선택" },
   { to: "/result", label: "개인 결과" },
+  { to: "/admin", label: "운영진" },
 ] as const;
 
 export function ScreenNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
-    <nav className="fixed bottom-3 left-1/2 z-50 flex w-[min(96vw,44rem)] -translate-x-1/2 flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-card/90 px-2 py-2 backdrop-blur">
+    <nav className="fixed bottom-3 left-1/2 z-50 flex w-[min(96vw,48rem)] -translate-x-1/2 flex-wrap items-center justify-center gap-1 rounded-full border border-border bg-card/90 px-2 py-2 backdrop-blur">
       {links.map((l) => (
         <Link
           key={l.to}
