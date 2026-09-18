@@ -1,50 +1,27 @@
+import { useEffect, useState } from "react";
+import QRCode from "react-qr-code";
 import { Link, useRouterState } from "@tanstack/react-router";
 
 export const MEN = ["M01", "M02", "M03", "M04", "M05"];
 export const WOMEN = ["W01", "W02", "W03", "W04", "W05"];
 
-/** Decorative QR-like block. Not a real, scannable code. */
-export function FakeQR({ size = 168 }: { size?: number }) {
-  const cells = 21;
-  const bits: boolean[] = [];
-  for (let i = 0; i < cells * cells; i++) {
-    const x = i % cells;
-    const y = Math.floor(i / cells);
-    bits.push(((x * 7 + y * 13 + ((x * y) % 5)) % 3) % 2 === 0);
-  }
-  const finder = (x: number, y: number) =>
-    (x < 7 && y < 7) || (x > cells - 8 && y < 7) || (x < 7 && y > cells - 8);
+/** Real, scannable QR code pointing at the vote page of the current origin. */
+export function VoteQR({ size = 168 }: { size?: number }) {
+  const [url, setUrl] = useState<string | null>(null);
+  useEffect(() => {
+    setUrl(`${window.location.origin}/vote`);
+  }, []);
 
   return (
     <div
-      className="rounded-2xl bg-card p-3"
-      style={{ boxShadow: "var(--shadow-card)" }}
-      aria-hidden="true"
+      className="flex items-center justify-center rounded-2xl bg-card p-3"
+      style={{ boxShadow: "var(--shadow-card)", width: size + 24, height: size + 24 }}
     >
-      <div
-        className="grid"
-        style={{
-          width: size,
-          height: size,
-          gridTemplateColumns: `repeat(${cells}, 1fr)`,
-        }}
-      >
-        {bits.map((on, i) => {
-          const x = i % cells;
-          const y = Math.floor(i / cells);
-          const isFinder = finder(x, y);
-          const ring =
-            isFinder &&
-            (x % 7 === 0 || x % 7 === 6 || y % 7 === 0 || y % 7 === 6 || (x % 7 >= 2 && x % 7 <= 4 && y % 7 >= 2 && y % 7 <= 4));
-          const filled = isFinder ? ring : on;
-          return (
-            <span
-              key={i}
-              style={{ backgroundColor: filled ? "var(--deep)" : "transparent" }}
-            />
-          );
-        })}
-      </div>
+      {url ? (
+        <QRCode value={url} size={size} fgColor="#3d2b2f" bgColor="transparent" />
+      ) : (
+        <div style={{ width: size, height: size }} aria-hidden="true" />
+      )}
     </div>
   );
 }

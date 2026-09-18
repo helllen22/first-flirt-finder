@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FakeQR, MEN, Petal } from "@/components/signal";
+import { MEN, Petal, VoteQR } from "@/components/signal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,13 +61,12 @@ function BeamIntro() {
           </div>
 
           <div className="flex flex-col items-center gap-3 md:pl-4">
-            <FakeQR />
+            <VoteQR />
             <p className="font-display text-lg tracking-widest text-deep">
               QR을 스캔하고 투표하기
             </p>
             <p className="max-w-[13rem] text-center text-[11px] leading-relaxed text-muted-foreground">
-              선택 내용은 다른 참가자에게 공개되지 않습니다. 위 QR은 화면 구성 예시이며 실제 투표
-              링크가 아닙니다.
+              선택 내용은 다른 참가자에게 공개되지 않습니다.
             </p>
           </div>
         </div>
